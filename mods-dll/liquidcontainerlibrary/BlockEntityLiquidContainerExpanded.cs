@@ -50,7 +50,8 @@ namespace Vintagestory.GameContent
             if (ownBlock.Attributes?["vanillaPerishMult"].Exists == true)
             {
                 perishMult = ownBlock.Attributes["vanillaPerishMult"].AsFloat();
-            } else
+            }
+            else
             {
                 perishMult = 1f;
             }
@@ -58,7 +59,8 @@ namespace Vintagestory.GameContent
             if (ownBlock.Attributes?["vanillaTransitionMult"].Exists == true)
             {
                 transitionMult = ownBlock.Attributes["vanillaTransitionMult"].AsFloat();
-            } else
+            }
+            else
             {
                 transitionMult = 1.5f;
             }
@@ -83,15 +85,15 @@ namespace Vintagestory.GameContent
                 vegetableSpoilMult = 1f;
                 unknownSpoilMult = 1f;
             }
-            if (ownBlock.Attributes?["spoilSpeedMulByFoodCat"]["normal"].Exists == true)
+            if (ownBlock.Attributes?["transitionSpeedMulByType"]["normal"].Exists == true)
             {
-                dairyTransitionMult = ownBlock.Attributes["spoilSpeedMulByFoodCat"]["normal"]["dairy"].AsFloat();
-                fruitTransitionMult = ownBlock.Attributes["spoilSpeedMulByFoodCat"]["normal"]["fruit"].AsFloat();
-                grainTransitionMult = ownBlock.Attributes["spoilSpeedMulByFoodCat"]["normal"]["grain"].AsFloat();
-                nonutritionTransitionMult = ownBlock.Attributes["spoilSpeedMulByFoodCat"]["normal"]["nonutrition"].AsFloat();
-                proteinTransitionMult = ownBlock.Attributes["spoilSpeedMulByFoodCat"]["normal"]["protein"].AsFloat();
-                vegetableTransitionMult = ownBlock.Attributes["spoilSpeedMulByFoodCat"]["normal"]["vegetable"].AsFloat();
-                unknownTransitionMult = ownBlock.Attributes["spoilSpeedMulByFoodCat"]["normal"]["unknown"].AsFloat();
+                dairyTransitionMult = ownBlock.Attributes["transitionSpeedMulByType"]["normal"]["dairy"].AsFloat();
+                fruitTransitionMult = ownBlock.Attributes["transitionSpeedMulByType"]["normal"]["fruit"].AsFloat();
+                grainTransitionMult = ownBlock.Attributes["transitionSpeedMulByType"]["normal"]["grain"].AsFloat();
+                nonutritionTransitionMult = ownBlock.Attributes["transitionSpeedMulByType"]["normal"]["nonutrition"].AsFloat();
+                proteinTransitionMult = ownBlock.Attributes["transitionSpeedMulByType"]["normal"]["protein"].AsFloat();
+                vegetableTransitionMult = ownBlock.Attributes["transitionSpeedMulByType"]["normal"]["vegetable"].AsFloat();
+                unknownTransitionMult = ownBlock.Attributes["transitionSpeedMulByType"]["normal"]["unknown"].AsFloat();
             }
             else
             {
@@ -132,7 +134,6 @@ namespace Vintagestory.GameContent
                 if (ownBlock?.Attributes != null)
                 {
                     float perishRate = GetPerishRate();
-                    Debug.WriteLine("Base Mul = " +baseMul+"  " +"Perish Rate = "+perishRate);
                     if (transType == EnumTransitionType.Cure)
                     {
                         if (ownBlock.Attributes["transitionSpeedMulByType"]["normal"].Exists == true)
@@ -169,8 +170,6 @@ namespace Vintagestory.GameContent
                         switch (foodcat)
                         {
                             case "Dairy":
-                                Debug.WriteLine("Dairy Modded");
-                                Debug.WriteLine("Base Mul = " + baseMul + "  " + "Perish Rate = " + perishRate + "  " + "Spoil Mult = " + dairySpoilMult);
                                 return baseMul * (perishRate * dairySpoilMult);
                             case "Fruit":
                                 return baseMul * (perishRate * fruitSpoilMult);
@@ -187,7 +186,7 @@ namespace Vintagestory.GameContent
                             default:
                                 return baseMul * (perishRate * perishMult);
                         }
-                        
+
                     }
                 }
             }
@@ -199,7 +198,6 @@ namespace Vintagestory.GameContent
             // Don't drop inventory contents
         }
 
-
         public override void OnBlockPlaced(ItemStack byItemStack = null)
         {
             base.OnBlockPlaced(byItemStack);
@@ -210,9 +208,6 @@ namespace Vintagestory.GameContent
                 MarkDirty(true);
             }
         }
-
-
-
 
         internal MeshData GenMesh()
         {
